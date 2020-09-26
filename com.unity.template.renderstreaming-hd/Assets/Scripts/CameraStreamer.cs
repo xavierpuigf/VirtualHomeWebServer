@@ -13,18 +13,23 @@ namespace Unity.RenderStreaming
         private Camera m_camera;
         private VideoStreamTrack m_track;
 
-        public void ChangeBitrate(int bitrate)
+        public void ChangeMinBitrate(int minBitrate)
         {
             RenderStreaming.Instance?.ChangeVideoParameters(
-                m_track, Convert.ToUInt64(bitrate), null);
+                m_track, Convert.ToUInt64(minBitrate), null, null);
         }
 
-        public void ChangeFramerate(int framerate)
+        public void ChangeMaxBitrate(int maxBitrate)
         {
             RenderStreaming.Instance?.ChangeVideoParameters(
-                m_track, null, Convert.ToUInt32(framerate));
+                m_track, null, Convert.ToUInt64(maxBitrate), null);
         }
 
+        public void ChangeFramerate(int maxFramerate)
+        {
+            RenderStreaming.Instance?.ChangeVideoParameters(
+                m_track, null, null, Convert.ToUInt32(maxFramerate));
+        }
         void Awake()
         {
             m_camera = GetComponent<Camera>();

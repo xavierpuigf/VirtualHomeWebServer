@@ -17,16 +17,22 @@ namespace Unity.RenderStreaming
         private VideoStreamTrack m_track;
         private WebCamTexture m_webCamTexture;
 
-        public void ChangeBitrate(int bitrate)
+        public void ChangeMinBitrate(int minBitrate)
         {
             RenderStreaming.Instance?.ChangeVideoParameters(
-                m_track, Convert.ToUInt64(bitrate), null);
+                m_track, Convert.ToUInt64(minBitrate), null, null);
         }
 
-        public void ChangeFramerate(int framerate)
+        public void ChangeMaxBitrate(int maxBitrate)
         {
             RenderStreaming.Instance?.ChangeVideoParameters(
-                m_track, null, Convert.ToUInt32(framerate));
+                m_track, null,Convert.ToUInt64(maxBitrate), null);
+        }
+
+        public void ChangeFramerate(int maxFramerate)
+        {
+            RenderStreaming.Instance?.ChangeVideoParameters(
+                m_track, null, null, Convert.ToUInt32(maxFramerate));
         }
 
         IEnumerator Start()

@@ -165,14 +165,16 @@ namespace Unity.RenderStreaming
             // pc.AddTransceiver(TrackKind.Video);
         }
 
-        public void ChangeVideoParameters(VideoStreamTrack track, ulong? bitrate, uint? framerate)
+        public void ChangeVideoParameters(VideoStreamTrack track, ulong? minBitrate, ulong? maxBitrate, uint? framerate)
         {
             foreach (var sender in m_mapTrackAndSenderList[track])
             {
                 RTCRtpSendParameters parameters = sender.GetParameters();
                 foreach (var encoding in parameters.Encodings)
                 {
-                    if(bitrate != null) encoding.maxBitrate = bitrate;
+                    // Not change each values if argument is null
+                    if (minBitrate != null) encoding.minBitrate = minBitrate;
+                    if (maxBitrate != null) encoding.maxBitrate = maxBitrate;
                     if (framerate != null) encoding.maxFramerate = framerate;
                 }
                 sender.SetParameters(parameters);
