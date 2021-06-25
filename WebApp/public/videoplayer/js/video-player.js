@@ -1,6 +1,8 @@
 import Signaling, { WebSocketSignaling } from "../../js/signaling.js";
 import * as Config from "../../js/config.js";
 import * as Logger from "../../js/logger.js";
+import { registerGamepadEvents, registerKeyboardEvents, registerMouseEvents, sendClickEvent } from "../../js/register-events.js";
+
 
 
 // enum type of event sending from Unity
@@ -32,13 +34,6 @@ export class VideoPlayer {
       _this.resizeVideo();
     }, true);
 
-    // secondly video
-    this.localStream2 = new MediaStream();
-    this.videoThumb = elements[1];
-    this.videoThumb.playsInline = true;
-    this.videoThumb.addEventListener('loadedmetadata', function () {
-      _this.videoThumb.play();
-    }, true);
 
     this.videoTrackList = [];
     this.videoTrackIndex = 0;
@@ -80,6 +75,8 @@ export class VideoPlayer {
     this.pc.ontrack = function (e) {
       if (e.track.kind == 'video') {
         _this.videoTrackList.push(e.track);
+        _this.localStream.addTrack(e.track);
+        _this.video.srcObject = _this.localStream;
       }
       if (e.track.kind == 'audio') {
         _this.localStream.addTrack(e.track);
@@ -104,6 +101,7 @@ export class VideoPlayer {
     this.channel.onclose = function () {
       Logger.log('Datachannel disconnected.');
     };
+
     this.channel.onmessage = async (msg) => {
       // receive message from unity and operate message
       let data;
@@ -113,14 +111,47 @@ export class VideoPlayer {
       } else {
         data = msg.data;
       }
-      const bytes = new Uint8Array(data);
-      _this.videoTrackIndex = bytes[1];
-      switch (bytes[0]) {
-        case UnityEventType.SWITCH_VIDEO:
-          _this.switchVideo(_this.videoTrackIndex);
-          break;
+      // console.log(data);
+      if (data == "DeleteButtons"){
+        var buttons_delete = document.getElementsByClassName("addedbutton");
+        for (var i = 0; i < buttons_delete.length; i++){
+          buttons_delete[i].remove();
+        }
       }
+      else {
+        var data_json = JSON.parse(data);
+        this.showbuttons(data_json);
+      }
+      // const bytes = new Uint8Array(data);
+      // _this.videoTrackIndex = bytes[1];
+      // switch (bytes[0]) {
+      //   case UnityEventType.SWITCH_VIDEO:
+      //     _this.switchVideo(_this.videoTrackIndex);
+      //     break;
+      // }
     };
+    this.showbuttons = function(buttons){
+      var video_player = this;
+      var player = document.getElementById("player");
+      for (var i = 0; i < buttons.length; i++){
+          const button = document.createElement('button');
+          button.id = "button_" + i;
+          button.it = i;
+          button.className = "addedbutton";
+          button.innerHTML = buttons[i]['button_str'];
+          button.style.left = buttons[i]['button_pos'][0] + "%";
+          button.style.top = buttons[i]['button_pos'][1] + "%";
+          button.style.display = "inline-block";
+          button.style.position = "absolute";
+          button.addEventListener("click", function () {
+            console.log(this.it);
+            sendClickEvent(video_player, this.it);
+          });
+          player.appendChild(button);
+          
+        // this.createButton(buttons['name'], buttons['position'], buttons['script'])
+      }
+    }
 
     this.signaling.addEventListener('answer', async (e) => {
       const answer = e.detail;
@@ -143,7 +174,7 @@ export class VideoPlayer {
     // This operation is required to generate offer SDP correctly.
     this.pc.addTransceiver('video', { direction: 'recvonly' });
     this.pc.addTransceiver('video', { direction: 'recvonly' });
-    this.pc.addTransceiver('audio', { direction: 'recvonly' });
+    // this.pc.addTransceiver('audio', { direction: 'recvonly' });
 
     // create offer
     const offer = await this.pc.createOffer();
@@ -169,15 +200,15 @@ export class VideoPlayer {
   // switch streaming destination main video and secondly video
   switchVideo(indexVideoTrack) {
     this.video.srcObject = this.localStream;
-    this.videoThumb.srcObject = this.localStream2;
+    //this.videoThumb.srcObject = this.localStream2;
 
     if (indexVideoTrack == 0) {
       this.replaceTrack(this.localStream, this.videoTrackList[0]);
-      this.replaceTrack(this.localStream2, this.videoTrackList[1]);
+      // this.replaceTrack(this.localStream2, this.videoTrackList[1]);
     }
     else {
-      this.replaceTrack(this.localStream, this.videoTrackList[1]);
-      this.replaceTrack(this.localStream2, this.videoTrackList[0]);
+      this.replaceTrack(this.localStream, this.videoTrackList[0]);
+      //this.replaceTrack(this.localStream2, this.videoTrackList[0]);
     }
   }
 

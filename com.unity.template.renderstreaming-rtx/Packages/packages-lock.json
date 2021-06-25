@@ -115,6 +115,7 @@
       "dependencies": {
         "com.unity.renderstreaming": "3.0.1-preview",
         "com.unity.render-pipelines.high-definition": "7.5.3"
+
       }
     },
     "com.unity.test-framework": {
