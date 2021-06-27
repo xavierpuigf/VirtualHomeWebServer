@@ -58,6 +58,39 @@ body {
   font-size: 16px;
 }
 
+.addedbutton {
+  position: absolute;
+  /*bottom: 10px;*/
+  /*left: 180px;*/
+  min-height: 60px;
+  background-color: #447FAF;
+  /* Blue */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.addedbutton:hover {
+  position: absolute;
+  /*bottom: 10px;*/
+  /*left: 180px;*/
+  /*width: 160px;*/
+  min-height: 60px;
+  background-color: olivedrab;
+  /* Blue */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
 #blueButton {
   position: absolute;
   bottom: 10px;

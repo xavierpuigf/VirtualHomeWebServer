@@ -113,6 +113,7 @@ export class VideoPlayer {
       }
       // console.log(data);
       if (data == "DeleteButtons"){
+        console.log("delete");
         var buttons_delete = document.getElementsByClassName("addedbutton");
         for (var i = 0; i < buttons_delete.length; i++){
           buttons_delete[i].remove();
@@ -120,7 +121,14 @@ export class VideoPlayer {
       }
       else {
         var data_json = JSON.parse(data);
-        this.showbuttons(data_json);
+        console.log(data_json);
+        if (data_json["task_name"] == "ButtonInfo"){
+          this.showbuttons(JSON.parse(data_json["task_content"]));  
+        }
+        else {
+          this.updateTask(JSON.parse(data_json["task_content"]))
+        }
+        
       }
       // const bytes = new Uint8Array(data);
       // _this.videoTrackIndex = bytes[1];
@@ -130,6 +138,16 @@ export class VideoPlayer {
       //     break;
       // }
     };
+    this.updateTask = function(task_content){
+      var html_str = "<ul>";
+
+      for (var i = 0; i < task_content.length; i++){
+        var li = task_content[i];
+        html_str += "<li>"+li+"</li>"
+      }
+      html_str += "</ul>";
+      document.getElementById("task_content").innerHTML = html_str;
+    }
     this.showbuttons = function(buttons){
       var video_player = this;
       var player = document.getElementById("player");
@@ -145,6 +163,10 @@ export class VideoPlayer {
           button.style.position = "absolute";
           button.addEventListener("click", function () {
             console.log(this.it);
+            var buttons_delete = document.getElementsByClassName("addedbutton");
+            for (var i = 0; i < buttons_delete.length; i++){
+              buttons_delete[i].remove();
+            }
             sendClickEvent(video_player, this.it);
           });
           player.appendChild(button);
@@ -173,7 +195,7 @@ export class VideoPlayer {
     // It can receive two video tracks and one audio track from Unity app.
     // This operation is required to generate offer SDP correctly.
     this.pc.addTransceiver('video', { direction: 'recvonly' });
-    this.pc.addTransceiver('video', { direction: 'recvonly' });
+    // this.pc.addTransceiver('video', { direction: 'recvonly' });
     // this.pc.addTransceiver('audio', { direction: 'recvonly' });
 
     // create offer
