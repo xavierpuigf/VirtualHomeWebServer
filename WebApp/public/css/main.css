@@ -104,3 +104,7 @@ div#warning {
     font-size: 20px;
   }
 }
+
+#task_content li {
+  padding: 5px;
+}

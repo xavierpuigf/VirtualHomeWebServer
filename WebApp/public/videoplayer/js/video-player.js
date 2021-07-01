@@ -10,6 +10,19 @@ var UnityEventType = {
   SWITCH_VIDEO: 0
 };
 
+
+function showWarning(message) {
+  const warningDiv = document.getElementById("warning");
+    warningDiv.innerHTML = "<h4>Warning</h4> "+message;
+    warningDiv.hidden = false;
+}
+
+function hideWarning(){
+    const warningDiv = document.getElementById("warning");
+    warningDiv.hidden = true;
+
+}
+
 function uuid4() {
   var temp_url = URL.createObjectURL(new Blob());
   var uuid = temp_url.toString();
@@ -125,6 +138,17 @@ export class VideoPlayer {
         if (data_json["task_name"] == "ButtonInfo"){
           this.showbuttons(JSON.parse(data_json["task_content"]));  
         }
+        else if (data_json["task_name"] == "PlayerInfo"){
+          var content = data_json["task_content"]
+          document.getElementById("playernum").innerHTML = content; 
+          if (content == "Player 0"){
+            document.getElementById("playernum").style.color = "magenta"; 
+          }
+          else {
+            document.getElementById("playernum").style.color = "blue"; 
+          
+          }
+        }
         else {
           this.updateTask(JSON.parse(data_json["task_content"]))
         }
@@ -140,9 +164,9 @@ export class VideoPlayer {
     };
     this.updateTask = function(task_content){
       var html_str = "<ul>";
-
       for (var i = 0; i < task_content.length; i++){
-        var li = task_content[i];
+        var li = task_content[i]['verb'] + " " + task_content[i]['obj1'] + " " + task_content[i]['relation'] + " " + task_content[i]['obj2'];
+        li += ": " + task_content[i]['count'] + "/" + task_content[i]['repetitions'];
         html_str += "<li>"+li+"</li>"
       }
       html_str += "</ul>";
@@ -279,9 +303,11 @@ export class VideoPlayer {
     }
     switch (this.channel.readyState) {
       case 'connecting':
+        showWarning("Waiting for connection... There may be other people playing")
         Logger.log('Connection not ready');
         break;
       case 'open':
+        hideWarning();
         this.channel.send(msg);
         break;
       case 'closing':
