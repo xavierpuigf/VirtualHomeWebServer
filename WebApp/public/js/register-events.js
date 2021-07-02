@@ -254,6 +254,10 @@ export function registerKeyboardEvents(videoPlayer) {
   }
 
   sendKeyDown = (e) => {
+    switch(e.keyCode){
+      case 37: case 39: case 38:  case 40: // Arrow keys
+      e.preventDefault(); 
+    }
     sendKey(e, KeyboardEventType.Down);
   }
 
@@ -364,7 +368,14 @@ export function registerMouseEvents(videoPlayer, playerElement) {
     // const y = (e.clientY - originY) / scale;
     const y = _videoPlayer.videoHeight - (e.clientY - originY) / scale;
 
-    Logger.log("x: " + x + ", y: " + y + ", scale: " + scale + ", originX: " + originX + ", originY: " + originY + " mouse button:" + e.buttons);
+
+    const y2 = (e.clientY - originY) / scale;
+    // Logger.log("x: " + x + ", y: " + y + ", scale: " + scale + ", originX: " + originX + ", originY: " + originY + " mouse button:" + e.buttons + " y2:"+y2);
+    if (e.buttons == 1){
+      console.log(e);
+      Logger.log(originY)
+      Logger.log("y: " + y + ", scale: " + scale + ", originY: " + originY + " mouse button:" + e.buttons + " y2:"+y2+" clientY:"+e.clientY);
+    }
     let data = new DataView(new ArrayBuffer(6));
     data.setUint8(0, InputEvent.Mouse);
     data.setInt16(1, x, true);

@@ -132,6 +132,13 @@ export class VideoPlayer {
           buttons_delete[i].remove();
         }
       }
+      else if (data == "SaveTime"){
+
+        var time_str = new Date().toLocaleTimeString();
+        document.getElementById("last_saved").innerHTML = time_str; 
+
+      }
+
       else {
         var data_json = JSON.parse(data);
         console.log(data_json);
@@ -303,7 +310,7 @@ export class VideoPlayer {
     }
     switch (this.channel.readyState) {
       case 'connecting':
-        showWarning("Waiting for connection... There may be other people playing")
+        showWarning("Waiting for connection... There may be other people playing. Try refreshing the page. If you still cannot play contact xavierpuigf@gmail.com")
         Logger.log('Connection not ready');
         break;
       case 'open':

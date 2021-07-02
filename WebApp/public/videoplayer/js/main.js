@@ -12,6 +12,10 @@ window.document.oncontextmenu = function () {
   return false;     // cancel default menu
 }
 
+window.addEventListener('scroll', function () {
+  videoPlayer.resizeVideo();
+}, true);
+
 window.addEventListener('resize', function () {
   videoPlayer.resizeVideo();
 }, true);

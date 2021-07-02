@@ -23,7 +23,7 @@
       </span>
       <br><br>
       <span> 
-        Press save (<b>S on keyboard</b>) from time to time, to not miss progress in case you lose your interent connection.
+        Press save (<b>V on keyboard</b>) from time to time, to not miss progress in case you lose your interent connection. Once you think the task is done, press <b>G</b>.
       </span>
     </div>
     <div id="warning" style="margin-bottom: 1empx" hidden=true></div>
@@ -36,7 +36,7 @@
         </ul>
 
       </div>
-      <span style="font-size: large; font-weight: bold"> Last Saved </span> <span style="font-size: large;"> Last Saved: </span>
+      <span style="font-size: large; font-weight: bold"> Last Saved: </span> <span id="last_saved" style="font-size: large;"> Still unsaved </span>
     </div>
     <div id="playerwrap" style="display: inline-block;  flex: 1 1 auto">
     <div id="player"></div>
@@ -57,11 +57,14 @@
               <li style="padding: 5px"> <b>Arrow keys:</b> Navigate arround the environment </li>
               <li style="padding: 5px"> <b>O:</b> Look up </li>
               <li style="padding: 5px"> <b>L:</b> Look down </li>
-              <li style="padding: 5px"> <b>S:</b> Save Episode </li>
+              <li style="padding: 5px"> <b>V:</b> Save Current Episode </li>
+              <li style="padding: 5px"> <b>G:</b> Finish this task </li>
             </ul>
           </div>
              <div style="flex: 0 1 50%">
               <ul>
+
+              <li style="padding: 5px"> <b>G:</b> Finish this episode </li>
               <li  style="padding: 5px"> <b>Left-click on screen:</b> Select object to interact </li>
               <li  style="padding: 5px"> <b>Q (with object selected):</b> rotate object counterclockwise</li>
               <li  style="padding: 5px"> <b>E (with object selected):</b> rotate object clockwise</li>
