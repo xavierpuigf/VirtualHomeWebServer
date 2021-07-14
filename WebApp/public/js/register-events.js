@@ -428,7 +428,34 @@ export function unregisterMouseEvents(videoPlayer, playerElement) {
     playerElement.removeEventListener('touchmove', sendTouchMove, false);
 
 }
+export function sendMouseImage(image, videoPlayer, e){
 
+    console.log(videoPlayer);
+    var bounds=image.getBoundingClientRect();
+    var left=bounds.left;
+    var top=bounds.top;
+    var x = event.clientX - left;
+    var y = event.clientY - top;
+    var cw=image.clientWidth;
+    var ch=image.clientHeight;
+    var iw=image.naturalWidth;
+    var ih=image.naturalHeight;
+    var px=x/cw*iw;
+    var py=y/ch*ih;
+    py = ih - py;
+    console.log(px, py);
+
+    // Logger.log("x: " + x + ", y: " + y + ", scale: " + scale + ", originX: " + originX + ", originY: " + originY + " mouse button:" + e.buttons);
+    let data = new DataView(new ArrayBuffer(6));
+    data.setUint8(0, InputEvent.Mouse);
+    data.setInt16(1, px, true);
+    data.setInt16(3, py, true);
+    data.setUint8(5, e.buttons);
+    console.log("Sending", e.buttons);
+    console.log(videoPlayer.videoHeight);
+    videoPlayer && videoPlayer.sendMsg(data.buffer);
+    
+  }
 
 export function sendClickEvent(videoPlayer, elementId) {
     let data = new DataView(new ArrayBuffer(3));
