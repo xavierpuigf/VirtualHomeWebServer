@@ -1,7 +1,7 @@
 import Signaling, { WebSocketSignaling } from "../../js/signaling.js";
 import * as Config from "../../js/config.js";
 import * as Logger from "../../js/logger.js";
-import { registerGamepadEvents, registerKeyboardEvents, registerMouseEvents, sendClickEvent } from "../../js/register-events.js";
+import { registerGamepadEvents, registerKeyboardEvents, registerMouseEvents, sendMouseImage, sendClickEvent } from "../../js/register-events.js";
 
 
 
@@ -112,6 +112,7 @@ export class VideoPlayer {
     };
     // Create data channel with proxy server and set up handlers
     this.channel = this.pc.createDataChannel('data');
+    var video_player = this;
     this.channel.onopen = function () {
       window.addEventListener("keydown", function(e) {
           if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
@@ -120,6 +121,20 @@ export class VideoPlayer {
       }, false);
       var new_img = htmlToElement('<img id="ItemPreview" style="width: 100%; height: 100%"></img>');
       document.getElementById("player").appendChild(new_img);
+      new_img.addEventListener('mousedown', function (event) {
+        // https://stackoverflow.com/a/288731/1497139
+        var ni = this;
+        var ev = event;
+        console.log(event);
+        sendMouseImage(ni,video_player, ev);
+      });
+      new_img.addEventListener('mouseup', function (event) {
+        // https://stackoverflow.com/a/288731/1497139
+        var ni = this;
+        var ev = event;
+        console.log(event);
+        sendMouseImage(ni, video_player, ev);
+      });
       document.getElementById("Video").remove();
       document.getElementById("fullscreenButton").remove();
       Logger.log('Datachannel connected.');
@@ -150,7 +165,6 @@ export class VideoPlayer {
       }
       else {
         var data_json = JSON.parse(data);
-        console.log(data_json);
         if (data_json["task_name"] == "ButtonInfo"){
           this.showbuttons(JSON.parse(data_json["task_content"]));  
         }
