@@ -19,13 +19,108 @@
     </section>
 
     <section>
-      <h2 id="videoplayer"><a href="videoplayer/index.html">VideoPlayer Sample</a></h2>
-      <p>This is a sample to receive the camera image rendered on Unity. You can operate the camera in Unity from the
-        browser.</p>
-      <p>It can be used in combination with the <code>WebBrowserInput</code> scene of Unity Render Streaming.</p>
-      <p>The WebApp must be running in Public mode.</p>
-    </section>
+      <p>We want to study how people typically do tasks at home. For that, you will control a character in a virtual environment, and your task is to drive the character to finish the tasks we ask you. You will need to explore the environment to find the objects needed for the task, grab them and place them around the environment to complete the task we ask you</p>
 
+      <p>The below link will walk you through a few tasks in the Virtual Home Environment. You will start with a quick tutorial. Once you are familiar
+      with the environment or have completed the tutorial, skip forward to the next task</p>
+      <p>Below is an example of the environment and the commands to interact with the environment, familiarize yourself before you start. (They will be repeated on the next webpage)
+  
+
+  <div class="slideshow-container">
+  <!-- Full-width images with number and caption text -->
+  <div class="mySlides fade">
+    <div class="numbertext">1 / 2</div>
+    <div style="display: flex">
+            <div style="flex: 0 1 50%">
+              <p>To the right is an example of the task environment.</p>
+
+              <p> On the right is the virtual home environment that you will move your model through. </p>
+              <p>On the left is the status of the Virtual Home with the task completion status and the save tracker. </p>
+              
+          </div>
+        <div style="flex: 0 1 50%">
+              <img src="images/example.png" width="700">
+        </div>
+    </div>
+  </div>
+  <div class="mySlides fade">
+    <div class = "numbertext"> 1 / 2</div>
+    <div style="display: flex">
+        <div style="flex: 0 1 50%">
+              <p>To the right is an example of the entire environment. </p>
+
+              <p>You can see the kitchen to the left, bedroom in bottom center, bathroom in top center, and living room on the right.</p>
+
+              <p>An example task would have you start in the bedroom and move to the kitchen to set the table</p>
+              
+        </div>
+        <div style="flex: 0 1 50%">
+            <img src="images/fullMap.png" width="700">
+        </div>
+    </div>
+  </div>
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+
+  <script>
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+}
+</script>
+<br>
+    <div id="instructions" style="height: 30%; width: 100%; background: rgba(210, 210, 210, 0.8); position: relative; ">
+      <div style="padding: 20px">
+          <span style="font-size: large; font-weight: bold;"> Commands </span><br><br>
+          <span> Click on objects in the screen to interact with them. Buttnos will appear when you can interact with those objects. If a button does not appear, you may need to get closer to the object to interact with it. </span>
+          <div style="display: flex">
+            <div style="flex: 0 1 50%">
+      
+              <ul>
+              <li style="padding: 5px"> <b>W, A, S, D:</b> Navigate arround the environment (forward, badkward, rotate left, rotate right) </li>
+              <li style="padding: 5px"> <b>Up arrow key:</b> Look up </li>
+              <li style="padding: 5px"> <b>Down arrow key:</b> Look down </li>
+              <li style="padding: 5px"> <b>V:</b> Save Current Episode </li>
+              <li style="padding: 5px"> <b>G:</b> Finish this task </li>
+            </ul>
+          </div>
+             <div style="flex: 0 1 50%">
+              <ul>
+              <li style="padding: 5px"> <b>G:</b> Finish this episode </li>
+              <li  style="padding: 5px"> <b>Left-click on screen:</b> Select object to interact </li>
+              <li  style="padding: 5px"> <b>Q (with object selected):</b> rotate object counterclockwise</li>
+              <li  style="padding: 5px"> <b>E (with object selected):</b> rotate object clockwise</li>
+            </ul>
+          </div>
+      </div>
+      </div>
+    </div>
+    <h2 id="videoplayer"><a href="videoplayer/index.html">Begin Single Person Collection</a></h2>
+    </section>
+    
     <section>
       <h2 id="bidirectional"><a href="bidirectional/index.html">Bidirectional Sample</a></h2>
       <p>This is a sample for sending and receiving video in both directions.</p>

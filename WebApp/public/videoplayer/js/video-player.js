@@ -157,6 +157,7 @@ export class VideoPlayer {
           }
         }
         else {
+          console.log(data_json["task_content"])
           this.updateTask(JSON.parse(data_json["task_content"]))
         }
         
@@ -175,6 +176,20 @@ export class VideoPlayer {
         var li = task_content[i]['verb'] + " " + task_content[i]['obj1'] + " " + task_content[i]['relation'] + " " + task_content[i]['obj2'];
         li += ": " + task_content[i]['count'] + "/" + task_content[i]['repetitions'];
         html_str += "<li>"+li+"</li>"
+        if(task_content[i]["tutFlag"] != null){
+          html_str += "<li> Tutorial Status: ";
+          var tutNotice = "";
+          if(task_content[i]["tutFlag"] == "1"){
+            tutNotice += "Welcome to the tutorial, look around and find a plate.";
+          }
+          else if(task_content[i]["tutFlag"] == "2"){
+            tutNotice += "You found the plate! Now place it on the table.";
+          }
+          else{
+            tutNotice += "You have completed the tutorial! Please explore more or move on.";
+          }
+          html_str += tutNotice + "</li>";
+        }
       }
       html_str += "</ul>";
       document.getElementById("task_content").innerHTML = html_str;
