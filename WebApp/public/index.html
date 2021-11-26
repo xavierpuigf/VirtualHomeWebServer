@@ -7,16 +7,9 @@
 
 <body>
   <div id="container">
-    <h1>Unity Render Streaming Samples</h1>
+    <h1>Performing your daily tasks in VirtualHome</h1>
 
-    <section>
-      <p>These are WebClient samples for use with <a href="https://docs.unity3d.com/Packages/com.unity.renderstreaming@latest/index.html">Unity Render
-          Streaming</a>.</p>
-    </section>
 
-    <section>
-      <div id="startup"></div>
-    </section>
 
     <section>
       <p>We want to study how people typically do tasks at home. For that, you will control a character in a virtual environment, and your task is to drive the character to finish the tasks we ask you. You will need to explore the environment to find the objects needed for the task, grab them and place them around the environment to complete the task we ask you</p>
@@ -28,42 +21,76 @@
 
   <div class="slideshow-container">
   <!-- Full-width images with number and caption text -->
-  <div class="mySlides fade">
-    <div class="numbertext">1 / 2</div>
-    <div style="display: flex">
-            <div style="flex: 0 1 50%">
-              <p>To the right is an example of the task environment.</p>
-
-              <p> On the right is the virtual home environment that you will move your model through. </p>
-              <p>On the left is the status of the Virtual Home with the task completion status and the save tracker. </p>
-              
-          </div>
-        <div style="flex: 0 1 50%">
-              <img src="images/example.png" width="700">
-        </div>
-    </div>
-  </div>
-  <div class="mySlides fade">
-    <div class = "numbertext"> 1 / 2</div>
-    <div style="display: flex">
+    <div class="mySlides fade">
+      <div class = "numbertext">1 / 4</div>
+      <div style="display: flex">
         <div style="flex: 0 1 50%">
               <p>To the right is an example of the entire environment. </p>
 
               <p>You can see the kitchen to the left, bedroom in bottom center, bathroom in top center, and living room on the right.</p>
 
-              <p>An example task would have you start in the bedroom and move to the kitchen to set the table</p>
+              <p>You will be placed in this apartment with various tasks that can occur on a day to day basis</p>
               
         </div>
         <div style="flex: 0 1 50%">
             <img src="images/fullMap.png" width="700">
         </div>
+      </div>
     </div>
+    <div class="mySlides fade">
+      <div class="numbertext">2 / 4</div>
+      <div style="display: flex">
+        <div style="flex: 0 1 50%">
+              <p>To the right is an example of the task environment.</p>
+
+              <p> On the right is the virtual home environment that you will move your model through to complete all of your different tasks. </p>
+              <p>On the left is the status of the Virtual Home with the task completion status and the save tracker. </p>
+              
+        </div>
+        <div style="flex: 0 1 50%">
+            <img src="images/example.png" width="700">
+        </div>
+      </div>
+    </div>
+    <div class="mySlides fade">
+      <div class="numbertext">3 / 4</div>
+      <div style="display: flex">
+        <div style="flex: 0 1 50%">
+              <p>To the right is an example of clicking an object in the virtual environment.</p>
+
+              <p>When you succesfully click on an object in the virtual environment, a message will show up indicating whether or not you want to pick up the item. You may hold up to two items in the environment</p>
+              
+        </div>
+        <div style="flex: 0 1 50%">
+            <img src="images/click.png" width="700">
+        </div>
+      </div>
+    </div>
+    <div class="mySlides fade">
+      <div class="numbertext">4 / 4</div>
+      <div style="display: flex">
+        <div style="flex: 0 1 50%">
+              <p>To the right is an example of the agent interacting with the environment</p>
+
+              <p>In this case the agent chose to place the plate on the kitchen table. Similar to picking up, placing will generate a message, once clicked, to confirm an action</p>
+
+              <p>An action, such as placing, will occur directly where the click occured.</p>
+
+              <p>Actions are not limited to placing. An actor can open a variety of actions through the same method, such as clicking on and opening cabinets, doors, etc.  </p>
+              
+        </div>
+        <div style="flex: 0 1 50%">
+            <img src="images/place.png" width="700">
+        </div>
+      </div>
+    </div>
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
   </div>
-  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  
 </div>
 
-  <script>
+<script>
 var slideIndex = 1;
 showSlides(slideIndex);
 
